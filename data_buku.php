@@ -42,24 +42,24 @@ if (isset($_POST['simpan'])) {
     }
 }
 
-$sql1 = "SELECT * FROM buku";
-$result1 = mysqli_query($koneksi, $sql1);
+// $sql1 = "SELECT * FROM buku";
+// $result1 = mysqli_query($koneksi, $sql1);
 
-while ($row = mysqli_fetch_assoc($result1)) {
-    echo "<h3>" . htmlspecialchars($row['judul']) . "</h3>";
-    echo "<p>Pengarang: " . htmlspecialchars($row['pengarang']) . "</p>";
-    echo "<p>Penerbit: " . htmlspecialchars($row['penerbit']) . "</p>";
-    echo "<p>Tahun: " . htmlspecialchars($row['tahun_terbit']) . "</p>";
-    echo "<p>Stok: " . htmlspecialchars($row['stok']) . "</p>";
-    echo "<p>Deskripsi: " . htmlspecialchars($row['deskripsi']) . "</p>";
+// while ($row = mysqli_fetch_assoc($result1)) {
+//     echo "<h3>" . htmlspecialchars($row['judul']) . "</h3>";
+//     echo "<p>Pengarang: " . htmlspecialchars($row['pengarang']) . "</p>";
+//     echo "<p>Penerbit: " . htmlspecialchars($row['penerbit']) . "</p>";
+//     echo "<p>Tahun: " . htmlspecialchars($row['tahun_terbit']) . "</p>";
+//     echo "<p>Stok: " . htmlspecialchars($row['stok']) . "</p>";
+//     echo "<p>Deskripsi: " . htmlspecialchars($row['deskripsi']) . "</p>";
     
-    // Tampilkan gambar
-    if (!empty($row['gambar'])) {
-        echo '<img src="data:image/jpeg;base64,' . $row['gambar'] . '" alt="Gambar Buku" style="max-width:200px;"><br><br>';
-    } else {
-        echo 'Tidak ada gambar.<br><br>';
-    }
-}
+//     // Tampilkan gambar
+//     if (!empty($row['gambar'])) {
+//         echo '<img src="data:image/jpeg;base64,' . $row['gambar'] . '" alt="Gambar Buku" style="max-width:200px;"><br><br>';
+//     } else {
+//         echo 'Tidak ada gambar.<br><br>';
+//     }
+// }
 
 ?>
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ while ($row = mysqli_fetch_assoc($result1)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Buku - Admin</title>
-    
+    <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
     <!-- bootstrap icon -->
@@ -79,7 +79,31 @@ while ($row = mysqli_fetch_assoc($result1)) {
         .card {margin-top: 10px;}
     </style>
 </head>
-<body>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-admin sidebar sidebar-light accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/dashboard">
+                <img src="../img/logo aplikasi billa 1.png" />
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/dashboard">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Nav Item - Data Pengguna -->
+            <li class="nav-item">
+                <a class="nav-link" href="Data-Pengguna">
+                    <i class="bi bi-people"></i>
+                    <span>Data Pengguna</span></a>
+            </li>
+        </ul>
+        <!-- End of Sidebar -->
     <div class="mx-auto">
     <!-- // untuk masukkan data -->
         <div class="card">
