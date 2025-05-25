@@ -11001,3 +11001,8 @@ tbody .btn-confirmed {
 .div.dt-buttons > .dt-button {
     display: none;
 }
+
+table tbody td:last-child {
+    display: flex;
+    justify-content: space-evenly;
+}
