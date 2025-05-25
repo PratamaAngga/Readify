@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage - Pengguna</title>
+    <link rel="stylesheet" href="user.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="index_user.html">READIFY.</a>
+      <div class="kotak-search">
+        <input type="search" name="cari" id="cari" placeholder="Cari" />
+        <i class="bi bi-search"></i>
+      </div>
+    </header>
+    <div class="navbar">
+      <div class="kosongan-navbar"></div>
+      <ul class="navigation">
+        <li>
+          <a href="#" class="kategori"
+            >Kategori <i class="bi bi-chevron-down"></i
+          ></a>
+          <ul id="categoryList"></ul>
+        </li>
+        <li><a href="index_user.html">Beranda</a></li>
+        <li><a href="#">Tentang</a></li>
+        <li>
+          <a href="#">Riwayat Pinjam</a>
+        </li>
+      </ul>
+      <div class="username"></div>
+    </div>
+    <section class="banner" id="banner">
+      <div class="content">
+        <h1>Selamat Datang Di</h1>
+        <h1>Website <a href="#">Readify.</a></h1>
+        <p>
+          Jelajahi dunia literasi dengan koleksi buku kami. Baca, pelajari, dan
+          temukan pengetahuan baru di perpustakaan kami.
+        </p>
+      </div>
+    </section>
+
+    <section class="rekomendasi">
+      <div class="title">
+        <div class="judul">
+          <p>Rekomendasi</p>
+          <h1>Pilihan buku terbaik untuk anda</h1>
+        </div>
+      </div>
+      <div class="books-grid" id="grid-item">
+        <div class="grid-item">
+          <div class="details">
+            <div class="kategori-buku" id="kategori-buku">
+              <a href="#">Fiksi</a>
+              <a href="#">Romantis</a>
+            </div>
+            <h3 class="judul-buku" id="judul-buku">
+              <a style="cursor: pointer" id="contoh1"
+                >Lady Evelina Dan Pangeran Adrian</a
+              >
+            </h3>
+            <a href="#" id="penulis-buku">By: Angga</a>
+          </div>
+          <div class="link-pinjam">
+            <button
+              style="cursor: pointer"
+              id="btn-pinjam"
+              onclick="openPinjam()"
+            >
+              <a>Pinjam</a>
+            </button>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="details">
+            <div class="kategori-buku" id="kategori-buku">
+              <a href="#">Fiksi</a>
+              <a href="#">Romantis</a>
+            </div>
+            <h3 class="judul-buku" id="judul-buku">
+              <a style="cursor: pointer" id="contoh1"
+                >Lady Evelina Dan Pangeran Adrian</a
+              >
+            </h3>
+            <a href="#" id="penulis-buku">By: Angga</a>
+          </div>
+          <div class="link-pinjam">
+            <button
+              style="cursor: pointer"
+              id="btn-pinjam"
+              onclick="openPinjam()"
+            >
+              <a>Pinjam</a>
+            </button>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="details">
+            <div class="kategori-buku" id="kategori-buku">
+              <a href="#">Fiksi</a>
+              <a href="#">Romantis</a>
+            </div>
+            <h3 class="judul-buku" id="judul-buku">
+              <a style="cursor: pointer" id="contoh1"
+                >Lady Evelina Dan Pangeran Adrian</a
+              >
+            </h3>
+            <a href="#" id="penulis-buku">By: Angga</a>
+          </div>
+          <div class="link-pinjam">
+            <button
+              style="cursor: pointer"
+              id="btn-pinjam"
+              onclick="openPinjam()"
+            >
+              <a>Pinjam</a>
+            </button>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="details">
+            <div class="kategori-buku" id="kategori-buku">
+              <a href="#">Fiksi</a>
+              <a href="#">Romantis</a>
+            </div>
+            <h3 class="judul-buku" id="judul-buku">
+              <a style="cursor: pointer" id="contoh1"
+                >Lady Evelina Dan Pangeran Adrian</a
+              >
+            </h3>
+            <a href="#" id="penulis-buku">By: Angga</a>
+          </div>
+          <div class="link-pinjam">
+            <button
+              style="cursor: pointer"
+              id="btn-pinjam"
+              onclick="openPinjam()"
+            >
+              <a>Pinjam</a>
+            </button>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="details">
+            <div class="kategori-buku" id="kategori-buku">
+              <a href="#">Fiksi</a>
+              <a href="#">Romantis</a>
+            </div>
+            <h3 class="judul-buku" id="judul-buku">
+              <a style="cursor: pointer" id="contoh1"
+                >Lady Evelina Dan Pangeran Adrian</a
+              >
+            </h3>
+            <a href="#" id="penulis-buku">By: Angga</a>
+          </div>
+          <div class="link-pinjam">
+            <button
+              style="cursor: pointer"
+              id="btn-pinjam"
+              onclick="openPinjam()"
+            >
+              <a>Pinjam</a>
+            </button>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="details">
+            <div class="kategori-buku" id="kategori-buku">
+              <a href="#">Fiksi</a>
+              <a href="#">Romantis</a>
+            </div>
+            <h3 class="judul-buku" id="judul-buku">
+              <a style="cursor: pointer" id="contoh1"
+                >Lady Evelina Dan Pangeran Adrian</a
+              >
+            </h3>
+            <a href="#" id="penulis-buku">By: Angga</a>
+          </div>
+          <div class="link-pinjam">
+            <button
+              style="cursor: pointer"
+              id="btn-pinjam"
+              onclick="openPinjam()"
+            >
+              <a>Pinjam</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="faq">
+      <div class="title-faq">
+        <p>FAQ</p>
+        <h1 class="judul-faq">Kami menyediakan Jawaban Atas Pertanyaan Anda</h1>
+        <p class="deskripsi-faq">
+          Temukan jawaban atas pertanyaan umum Anda di bagian FAQ kami.
+          Informasi lengkap dan bermanfaat untuk membantu Anda lebih memahami
+          layanan kami. Jelajahi sekarang untuk solusi cepat dan mudah.
+        </p>
+      </div>
+      <div class="konten-faq">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleAnswer(this)">
+            <p>Apa itu Readify.?</p>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Readify. adalah aplikasi dan website perpustakaan digital yang
+              memberikan akses kepada penggunanya untuk menjadi pengelola dan
+              anggota perpustakaan. Bekerja sama dengan ratusan penerbit
+              ternama, Readify. menyediakan ribuan koleksi bacaan digital berupa
+              buku, majalah, dan koran. Layanan ePerpus dapat diakses melalui
+              web browser dan smartphone berbasis iOS dan Android.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleAnswer(this)">
+            <p>Bagaimana cara meminjam bacaan di Readify.?</p>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Anggota perpustakaan dapat meminjam secara online melalui website
+              atau aplikasi yang dapat diakses melalui perangkat web browser dan
+              mobile berbasis Android maupun iOS.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleAnswer(this)">
+            <p>Berapa lama anggota perpustakaan dapat meminjam bacaan?</p>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Durasi peminjaman dapat diatur sesuai keinginan pengguna dengan
+              maksimal peminjaman 1 minggu.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleAnswer(this)">
+            <p>Bagaimana cara mengembalikan buku?</p>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Caranya sangat mudah. Anda dapat masuk ke detail bacaan pada
+              website atau aplikasi, lalu tekan "kembalikan" , lalu buku bacaan
+              di serahkan ke perpustakaan.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleAnswer(this)">
+            <p>
+              Apa yang terjadi ketika masa peminjaman berakhir namun tidak
+              sempat mengembalikan bacaan?
+            </p>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Jika mengalami keterlambatan pengembalian , pengguna akan
+              dikenakan denda saat pengembalian buku.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="penutup">
+        <div class="konten-penutup">
+            <div class="books-footer">
+                <h2>Readify.</h2>
+                <p class="deskripsi-perpus">
+                    Readify. adalah sebuah sistem perpustakaan digital yang bisa di
+                    akses kapanpun dan dimanapun
+                </p>
+                <p class="alamat">Jl. Raimei No 123 Kec. Klojen, Kota Malang</p>
+                <p class="whatsapp">Whatsapp Contact Center : 0812-3456-7890</p>
+                <p class="email">Email : Readify.@gmail.com</p>
+            </div>
+            <div class="layanan">
+                <h2>layanan</h2>
+                <a href="#">Direktori Peprustakaan</a>
+            </div>
+            <div class="informasi">
+                <h2>Informasi</h2>
+                <li>
+                    <a href="Tentang">Tentang Kami</a>
+                </li>
+                <li>
+                    <a href="Kontak">Hubungi Kami</a>
+                </li>
+                <div class="sosmed">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><img src="../img/yt-icon.png" /></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; Readify. Perpustakaan Digital</p>
+            <p>Perpustakaan Digital dengan berbagai ffitur</p>
+        </div>
+    </section>
+    <script>
+      function toggleAnswer(question) {
+        const answer = question.nextElementSibling;
+        const icon = question.querySelector("i");
+
+        // Toggle the answer visibility
+        answer.style.display =
+          answer.style.display === "block" ? "none" : "block";
+        answer.style.maxHeight =
+          answer.style.maxHeight === "200px" ? "0px" : "200px";
+
+        // Add or remove the 'active' class
+        question.classList.toggle("active");
+
+        // Adjust the dropdown icon
+        icon.classList.toggle("bi bi-chevron-up");
+        icon.classList.toggle("bi bi-chevron-down");
+      }
+    </script>
+  </body>
+</html>

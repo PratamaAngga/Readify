@@ -1,0 +1,423 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#logo {
+  width: 225px;
+  height: 56px;
+}
+
+section {
+  padding: 30px 100px;
+  position: relative;
+  min-height: calc(100vh - 80px);
+}
+
+p {
+  font-size: 16px;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  min-height: 100px;
+  position: relative;
+}
+
+.content img {
+  width: 700px;
+  height: 700px;
+  display: block;
+}
+
+.content .form-login {
+  width: 820px;
+  min-height: 100px;
+  padding: 0 10px;
+}
+
+.content .form-login h2 {
+  font-size: 24px;
+  color: #D37676;
+  font-weight: 700;
+}
+
+.content .form-login h3 {
+  font-size: 18px;
+  color: #D37676;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.content .form-login form button[type="submit"] {
+  background: #D37676;
+  width: 100%;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 2px;
+  background-color: #808080; /* Ganti warna garis sesuai kebutuhan */
+}
+
+.divider-text {
+  margin: 0 10px;
+  color: #808080; /* Ganti warna teks sesuai kebutuhan */
+}
+
+.login-google {
+  display: flex;
+  padding: 16px 20px;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D37676;
+  margin-top: 30px;
+}
+
+.login-google img {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.login-google p {
+  color: #D37676;
+}
+
+#eye {
+  width: 24px;
+  height: 24px;
+  color: gray;
+  margin-right: 12px;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.links p {
+  color: #D37676;
+  margin-right: 8px;
+}
+
+.links a {
+  color: #D37676;
+}
+
+.faq {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+    padding: 0 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.faq .title-faq {
+    width: 660px;
+    min-height: 100px;
+}
+
+.faq .title-faq p {
+    font-size: 1em;
+    color: #898989;
+    margin-bottom: 30px;
+}
+
+.faq .title-faq h1 {
+    font-size: 2em;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+}
+
+.faq .title-faq .deskripsi-faq {
+    font-size: 18px;
+    color: #000;
+}
+
+.faq .konten-faq {
+    width: 1000px;
+    min-height: 100px;
+}
+
+.faq .konten-faq .faq-item:first-child {
+    margin-top: 45px;
+}
+
+.faq .konten-faq .faq-item {
+    margin: 0;
+}
+
+.faq .konten-faq .faq-item .faq-question {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #d0d3d9;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    color: #344054;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.faq .konten-faq .faq-item .faq-question p {
+    max-width: 600px;
+}
+
+.faq .konten-faq .faq-item .faq-question i {
+    color: #344054;
+    font-size: 24px;
+}
+
+.faq .konten-faq .faq-item .faq-answer {
+    padding: 1em;
+    max-height: 0;
+    overflow: hidden;
+    background-color: #ffedd2;
+    border: none;
+    border-bottom: 1px solid #c25b4a;
+    transition: maxHeight 0.5s ease-in-out;
+    display: none;
+}
+
+.faq-question.active .faq-answer {
+    max-height: 200px; /* You can adjust this value based on your needs */
+}
+
+.faq-question i {
+    /* width: 400px;
+  display: flex;
+  justify-content: end; */
+    transition: transform 0.3s;
+}
+
+.faq-question.active i {
+    /* justify-content: end; */
+    transform: rotate(-180deg);
+}
+
+.link-kontak {
+    position: relative;
+    max-width: 100%;
+    min-height: 100px;
+    padding: 80px;
+}
+
+.link-kontak .konten-link-kontak {
+    width: 100%;
+    padding: 40px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f5f5;
+}
+
+.link-kontak .konten-link-kontak .title-link-kontak h2 {
+    font-size: 24px;
+    color: #c25b4a;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.link-kontak .konten-link-kontak .title-link-kontak p {
+    color: #c25b4a;
+    font-size: 1em;
+}
+
+.link-kontak .konten-link-kontak .btn-kontak {
+    width: 180px;
+    background: #c25b4a;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link-kontak .konten-link-kontak .btn-kontak a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.link-kontak .konten-link-kontak .btn-kontak i {
+    color: #fff;
+    font-size: 16px;
+    -webkit-text-stroke: 1px;
+}
+
+/* Batas Homepage */
+
+.penutup {
+    position: relative;
+    max-width: 100%;
+    min-height: 100px;
+    padding: 80px;
+    background: #494241;
+}
+
+.penutup .konten-penutup {
+    display: flex;
+    width: 100%;
+    margin-bottom: 80px;
+    min-height: 50px;
+    justify-content: space-between;
+}
+
+.penutup .konten-penutup .books-footer {
+    max-width: 430px;
+    min-height: 50px;
+}
+
+.penutup .konten-penutup .books-footer .buku {
+    display: flex;
+    width: 430px;
+    justify-content: space-between;
+    height: 130px;
+    margin-bottom: 40px;
+}
+
+.penutup .konten-penutup .books-footer .buku img {
+    object-fit: fill;
+    width: 100px;
+    height: 128px;
+    cursor: pointer;
+}
+
+.penutup .konten-penutup .books-footer h2 {
+    color: #eac170;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.penutup .konten-penutup .books-footer .deskripsi-perpus {
+    color: #fff;
+    font-size: 1em;
+    width: 400px;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+.penutup .konten-penutup .books-footer .alamat,
+.penutup .konten-penutup .books-footer .whatsapp,
+.penutup .konten-penutup .books-footer .email {
+    color: #fff;
+    font-size: 1em;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.penutup .konten-penutup .layanan {
+    width: 200px;
+    min-height: 10px;
+}
+
+.penutup .konten-penutup .layanan h2 {
+    text-transform: capitalize;
+    color: #eac170;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.penutup .konten-penutup .layanan a {
+    color: #fff;
+    font-size: 1em;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.penutup .konten-penutup .informasi {
+    min-width: 210px;
+    min-height: 10px;
+}
+
+.penutup .konten-penutup .informasi h2 {
+    text-transform: capitalize;
+    color: #eac170;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.penutup .konten-penutup .informasi li {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.penutup .konten-penutup .informasi li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.penutup .konten-penutup .informasi .sosmed {
+    width: 100%;
+    min-height: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.penutup .konten-penutup .informasi .sosmed a {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #fff;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.penutup .konten-penutup .informasi .sosmed a i {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.penutup .konten-penutup .informasi .sosmed a img {
+    width: 20px;
+    height: 20px;
+}
+
+.penutup .footer {
+    width: 100%;
+    margin-top: 80px;
+    border: none;
+    border-top: 1px solid #fff;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.penutup .footer p {
+    color: #eac170;
+    font-size: 1em;
+}
