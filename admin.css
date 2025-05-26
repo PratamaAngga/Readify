@@ -10863,6 +10863,11 @@ tr td:last-child div {
     color: #fff;
     font-size: 1em;
     font-weight: 600;
+    text-decoration: none;
+}
+
+#btn-tambah {
+    text-decoration: none;
 }
 
 .btn-tambah i {

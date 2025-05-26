@@ -15,13 +15,60 @@ if (isset($_GET['op'])) {
     $op = "";
 }
 
+if ($op == 'delete') {
+    $id_buku = $_GET['id_buku'];
+    $sql5 = "DELETE FROM buku WHERE id_buku = '$id_buku'";
+    $q5 = mysqli_query($koneksi, $sql5);
+    if ($q5) {
+        $sukses = "Berhasil hapus data";
+        header("refresh:3; url=data_buku.php");
+    } else {
+        $error = "Gagal menghapus data";
+    }
+}
+
+if (isset($_POST['simpan_edit'])) {
+    $id_buku = $_POST['edit_id_buku'];
+    $judul = $_POST['edit_judul'];
+    $pengarang = $_POST['edit_pengarang'];
+    $penerbit = $_POST['edit_penerbit'];
+    $tahun_terbit = $_POST['edit_tahun_terbit'];
+    $deskripsi = $_POST['edit_deskripsi'];
+    $stok = $_POST['edit_stok'];
+
+    // Proses gambar
+    if (isset($_FILES['edit_gambar']) && $_FILES['edit_gambar']['error'] == 0) {
+        $imageData = file_get_contents($_FILES['edit_gambar']['tmp_name']);
+        $base64Image = base64_encode($imageData);
+    } else {
+        $base64Image = null;
+    }
+
+    if ($judul && $pengarang && $penerbit && $tahun_terbit && $deskripsi && $stok) {
+        if ($base64Image !== null) {
+            $sql4 = "UPDATE buku SET judul = '$judul', pengarang = '$pengarang', penerbit = '$penerbit', tahun_terbit = '$tahun_terbit', stok = '$stok', deskripsi = '$deskripsi', gambar = '$base64Image' WHERE id_buku = '$id_buku'";     
+        } else {
+            $sql4 = "UPDATE buku SET judul = '$judul', pengarang = '$pengarang', penerbit = '$penerbit', tahun_terbit = '$tahun_terbit', stok = '$stok', deskripsi = '$deskripsi' WHERE id_buku = '$id_buku'";     
+        }
+        $q4 = mysqli_query($koneksi, $sql4);
+        if ($q4) {
+            $sukses = "Berhasil merubah data!";
+            header("refresh:3; url=data_buku.php");
+        } else {
+            $error = "Gagal merubah data: " . mysqli_error($koneksi);
+        }
+    } else {
+        $error = "Masukkan semua data";
+    }
+}
+
 if (isset($_POST['simpan'])) {
     $judul = $_POST['judul'];
     $pengarang = $_POST['pengarang'];
     $penerbit = $_POST['penerbit'];
     $tahun_terbit = $_POST['tahun_terbit'];
-    $stok = $_POST['stok'];
     $deskripsi = $_POST['deskripsi'];
+    $stok = $_POST['stok'];
 
     // Proses gambar
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
@@ -31,35 +78,21 @@ if (isset($_POST['simpan'])) {
         $base64Image = null;
     }
 
-    // Simpan ke database
-    $sql = "INSERT INTO buku (judul, pengarang, penerbit, tahun_terbit, stok, deskripsi, gambar) VALUES ('$judul', '$pengarang', '$penerbit', '$tahun_terbit', '$stok', '$deskripsi', '$base64Image')";
-
-    $result = mysqli_query($koneksi, $sql);
-    if ($result) {
-        $sukses = "Berhasil menyimpan data buku!";
+    if ($judul && $pengarang && $penerbit && $tahun_terbit && $deskripsi && $stok && $base64Image) {
+        // Simpan ke database
+        $sql = "INSERT INTO buku (judul, pengarang, penerbit, tahun_terbit, stok, deskripsi, gambar) VALUES ('$judul', '$pengarang', '$penerbit', '$tahun_terbit', '$stok', '$deskripsi', '$base64Image')";
+    
+        $result = mysqli_query($koneksi, $sql);
+        if ($result) {
+            $sukses = "Berhasil menyimpan data buku!";
+            header("refresh:3; url=data_buku.php");
+        } else {
+            $error = "Gagal menyimpan data buku: " . mysqli_error($koneksi);
+        }
     } else {
-        $error = "Gagal menyimpan data buku: " . mysqli_error($koneksi);
+        $error = "Masukkan semua data";
     }
 }
-
-// $sql1 = "SELECT * FROM buku";
-// $result1 = mysqli_query($koneksi, $sql1);
-
-// while ($row = mysqli_fetch_assoc($result1)) {
-//     echo "<h3>" . htmlspecialchars($row['judul']) . "</h3>";
-//     echo "<p>Pengarang: " . htmlspecialchars($row['pengarang']) . "</p>";
-//     echo "<p>Penerbit: " . htmlspecialchars($row['penerbit']) . "</p>";
-//     echo "<p>Tahun: " . htmlspecialchars($row['tahun_terbit']) . "</p>";
-//     echo "<p>Stok: " . htmlspecialchars($row['stok']) . "</p>";
-//     echo "<p>Deskripsi: " . htmlspecialchars($row['deskripsi']) . "</p>";
-    
-//     // Tampilkan gambar
-//     if (!empty($row['gambar'])) {
-//         echo '<img src="data:image/jpeg;base64,' . $row['gambar'] . '" alt="Gambar Buku" style="max-width:200px;"><br><br>';
-//     } else {
-//         echo 'Tidak ada gambar.<br><br>';
-//     }
-// }
 
 ?>
 <!DOCTYPE html>
@@ -74,6 +107,7 @@ if (isset($_POST['simpan'])) {
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .mx-auto {width: 800px;}
         .card {margin-top: 10px;}
@@ -97,63 +131,40 @@ if (isset($_POST['simpan'])) {
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="/admin/dashboard">
-                    <i class="bi bi-grid"></i>
+                    <i class="bi bi-house-door"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Nav Item - Data Pengguna -->
             <li class="nav-item">
                 <a class="nav-link" href="Data-Pengguna">
+                    <i class="bi bi-book"></i>
+                    <span>Data Buku</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Data-Pengguna">
                     <i class="bi bi-people"></i>
                     <span>Data Pengguna</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Data-Pengguna">
+                    <i class="bi bi-card-list"></i>
+                    <span>Data Peminjaman</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Data-Pengguna">
+                    <i class="bi bi-bookmarks"></i>
+                    <span>Data Kategori</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Data-Pengguna">
+                    <i class="bi bi-journal-plus"></i>
+                    <span>Data Donasi Buku</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Buku</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="" class="img-fluid" id="gambar-buku">
-                                </div>
-                                <div class="col-md-8">
-                                    <ul class="list-group">
-                                        <li class="list-group-item mb-4">
-                                            <h3 id="judul-buku"></h3>
-                                        </li>
-                                        <label for="kategori-buku">Kategori :</label>
-                                        <li class="list-group-item mb-4" id="kategori-buku"></li>
-                                        <label for="kategori-buku">Penulis :</label>
-                                        <li class="list-group-item mb-4" id="penulis-buku"></li>
-                                        <label for="kategori-buku">Penerbit :</label>
-                                        <li class="list-group-item mb-4" id="penerbit-buku"></li>
-                                        <label for="kategori-buku">Tahun Terbit :</label>
-                                        <li class="list-group-item mb-4" id="terbit-buku"></li>
-                                        <label for="kategori-buku">Stok :</label>
-                                        <li class="list-group-item mb-4" id="stok-buku"></li>
-                                        <label for="kategori-buku">Deskripsi :</label>
-                                        <li class="list-group-item mb-4" id="deskripsi-buku"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="pemisah" style="width: 2px; background-color:#727272; min-height: 100vh"></div>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -173,30 +184,10 @@ if (isset($_POST['simpan'])) {
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">!</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div
-                                class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown" id="notifAdmin"
-                                >
-                                <h6 class="dropdown-header">Notifikasi</h6>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="mr-3 img-profile rounded-circle" src="../img/undraw_profile.svg" />
                                 <span class="d-none d-lg-inline text-gray-600 small" id="user"> (Petugas)</span>
                             </a>
                             <!-- Dropdown - User Information -->
@@ -217,11 +208,163 @@ if (isset($_POST['simpan'])) {
                 </nav>
                 <!-- End of Topbar -->
 
+                <!-- Modal Tambah Buku -->
+                <div class="modal fade" id="modalTambahBuku" tabindex="-1" aria-labelledby="modalTambahBukuLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTambahBukuLabel">Tambah Buku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form Tambah Buku -->
+                        <form action="" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="judul" class="form-label">Judul Buku</label>
+                            <input type="text" class="form-control" name="judul" id="judul" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pengarang" class="form-label">Pengarang</label>
+                            <input type="text" class="form-control" name="pengarang" id="pengarang" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="penerbit" class="form-label">Penerbit</label>
+                            <input type="text" class="form-control" name="penerbit" id="penerbit" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
+                            <input type="number" class="form-control" name="tahun_terbit" id="tahun_terbit" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stok" class="form-label">Stok</label>
+                            <input type="number" class="form-control" name="stok" id="stok" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deskripsi" class="form-label">Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gambar" class="form-label">Upload Gambar (Cover)</label>
+                            <input type="file" class="form-control" name="gambar" id="gambar" accept="image/*" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="simpan" class="btn btn-primary">Simpan Buku</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Modal Edit Buku -->
+                <div class="modal fade" id="modalEditBuku" tabindex="-1" aria-labelledby="modalEditBukuLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditBukuLabel">Edit Buku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form Edit Buku -->
+                        <form action="" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="edit_id_buku" id="edit_id_buku">
+                        <div class="mb-3">
+                            <label for="edit_judul" class="form-label">Judul Buku</label>
+                            <input type="text" class="form-control" name="edit_judul" value="<?= htmlspecialchars($judul) ?>" id="edit_judul" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_pengarang" class="form-label">Pengarang</label>
+                            <input type="text" class="form-control" name="edit_pengarang" value="<?= htmlspecialchars($pengarang) ?>" id="edit_pengarang" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_penerbit" class="form-label">Penerbit</label>
+                            <input type="text" class="form-control" name="edit_penerbit" value="<?= htmlspecialchars($penerbit) ?>" id="edit_penerbit" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_tahun_terbit" class="form-label">Tahun Terbit</label>
+                            <input type="number" class="form-control" name="edit_tahun_terbit" value="<?= htmlspecialchars($tahun_terbit) ?>" id="edit_tahun_terbit" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_stok" class="form-label">Stok</label>
+                            <input type="number" class="form-control" name="edit_stok" value="<?= htmlspecialchars($stok) ?>" id="edit_stok" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_deskripsi" class="form-label">Deskripsi</label>
+                            <textarea class="form-control" name="edit_deskripsi" value="<?= htmlspecialchars($deskripsi) ?>" id="edit_deskripsi" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>Gambar Saat Ini:</label><br>
+                            <img id="preview_gambar" src="" alt="Gambar Buku"  width="100">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_gambar" class="form-label">Upload Gambar (Cover)</label>
+                            <input type="file" class="form-control" name="edit_gambar" id="edit_gambar" accept="image/*">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="simpan_edit" class="btn btn-primary">Simpan Buku</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Modal Show Buku -->
+                <div class="modal fade" id="modalShowBuku" tabindex="-1" aria-labelledby="modalShowBukuLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditBukuLabel">Detail Buku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form Edit Buku -->
+                        <form action="">
+                        <input type="hidden" name="show_id_buku" id="show_id_buku">
+                        <div class="mb-3">
+                            <label for="show_judul" class="form-label">Judul Buku</label>
+                            <input type="text" class="form-control" name="show_judul" value="<?= htmlspecialchars($judul) ?>" id="show_judul" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="show_pengarang" class="form-label">Pengarang</label>
+                            <input type="text" class="form-control" name="show_pengarang" value="<?= htmlspecialchars($pengarang) ?>" id="show_pengarang" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="show_penerbit" class="form-label">Penerbit</label>
+                            <input type="text" class="form-control" name="show_penerbit" value="<?= htmlspecialchars($penerbit) ?>" id="show_penerbit" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="show_tahun_terbit" class="form-label">Tahun Terbit</label>
+                            <input type="number" class="form-control" name="show_tahun_terbit" value="<?= htmlspecialchars($tahun_terbit) ?>" id="show_tahun_terbit" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="show_stok" class="form-label">Stok</label>
+                            <input type="number" class="form-control" name="show_stok" value="<?= htmlspecialchars($stok) ?>" id="show_stok" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="show_deskripsi" class="form-label">Deskripsi</label>
+                            <textarea class="form-control" name="show_deskripsi" value="<?= htmlspecialchars($deskripsi) ?>" id="show_deskripsi" rows="3" readonly></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>Gambar Saat Ini:</label><br>
+                            <img id="show_gambar" src="" alt="Gambar Buku"  width="100">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Button Print Laporan -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <a href="/admin/Tambah-Buku"><button class="btn-tambah">
+                        <a href="#" id="btn-tambah" data-bs-toggle="modal" data-bs-target="#modalTambahBuku"><button class="btn-tambah">
                                 <i class="bi bi-plus-lg"></i>Tambah Buku
                             </button></a>
                     </div>
@@ -269,8 +412,9 @@ if (isset($_POST['simpan'])) {
                                             <td><?php echo $tahun_terbit ?></td>
                                             <td><?php echo $stok ?></td>
                                             <td>
-                                                <a href="index.php?op=edit&id=<?php echo $id_buku ?>"><button type="button" class="btn btn-warning btn-sm">Edit</button></a>
-                                                <a href="index.php?op=delete&id=<?php echo $id_buku ?>" onclick="return confirm('Yakin mau delete data?')"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+                                                <button type="button" class="btn btn-warning btn-sm editBtn" data-id_buku="<?php echo $r2['id_buku']; ?>" data-toggle="modal" data-target="#modalEditBuku"><i class="bi bi-pencil"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm showBtn" data-id_buku="<?php echo $r2['id_buku']; ?>" data-toggle="modal" data-target="#modalShowBuku"><i class="bi bi-eye"></i></button>
+                                                <a href="data_buku.php?op=delete&id_buku=<?php echo $id_buku ?>" onclick="return confirm('Yakin mau delete data?')"><button type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></button></a>
                                             </td>
                                         </tr>
                                         <?php } ?>
@@ -294,75 +438,56 @@ if (isset($_POST['simpan'])) {
             </footer>
             <!-- End of Footer -->
         </div>
-    </div>   
-    <div class="mx-auto">
-    <!-- // untuk masukkan data -->
-        <div class="card">
-            <div class="card-header">
-                Create / Edit Data
-            </div>
-            <div class="card-body">
-                <?php 
-                if ($error) {
-                    ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo $error ?>
-                    </div>
-                    <?php
-                    header("refresh:5; url=index.php"); //5detik
-                }
-                ?>
-                <?php 
-                if ($sukses) {
-                    ?>
-                    <div class="alert alert-success" role="alert">
-                        <?php echo $sukses ?>
-                    </div>
-                    <?php
-                    header("refresh:5; url=index.php");
-                }
-                ?>
-                <form action="" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="judul" class="form-label">Judul Buku</label>
-                        <input type="text" class="form-control" name="judul" id="judul" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="pengarang" class="form-label">Pengarang</label>
-                        <input type="text" class="form-control" name="pengarang" id="pengarang" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="penerbit" class="form-label">Penerbit</label>
-                        <input type="text" class="form-control" name="penerbit" id="penerbit" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
-                        <input type="number" class="form-control" name="tahun_terbit" id="tahun_terbit" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="stok" class="form-label">Stok</label>
-                        <input type="number" class="form-control" name="stok" id="stok" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="stok" class="form-label">Deskripsi</label>
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Deskripsi Buku" id="deskripsi" name="deskripsi" style="height: 100px" required></textarea>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gambar" class="form-label">Upload Gambar (Cover)</label>
-                        <input type="file" class="form-control" name="gambar" id="gambar" accept="image/*" required>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" name="simpan" class="btn btn-primary">Simpan Buku</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
     <script>
         $(document).ready(function () {
             $('#tabelBuku').DataTable();
+            $('.editBtn').click(function() {
+                const id_buku = $(this).data('id_buku');
+                $.ajax({
+                url: 'get_buku.php',
+                type: 'GET',
+                data: { id_buku: id_buku },
+                dataType: 'json',
+                success: function(data) {
+                    $('#edit_id_buku').val(data.id_buku);
+                    $('#edit_judul').val(data.judul);
+                    $('#edit_pengarang').val(data.pengarang);
+                    $('#edit_penerbit').val(data.penerbit);
+                    $('#edit_tahun_terbit').val(data.tahun_terbit);
+                    $('#edit_stok').val(data.stok);
+                    $('#edit_deskripsi').val(data.deskripsi);
+                    $('#preview_gambar').attr('src', 'data:image/jpeg;base64,' + data.gambar);
+                    $('#modalEditBuku').modal('show');
+                },
+                error: function() {
+                    alert('Gagal mengambil data.');
+                }
+                });
+            });
+            $('.showBtn').click(function() {
+                const id_buku = $(this).data('id_buku');
+                $.ajax({
+                url: 'get_buku.php',
+                type: 'GET',
+                data: { id_buku: id_buku },
+                dataType: 'json',
+                success: function(data) {
+                    $('#show_id_buku').val(data.id_buku);
+                    $('#show_judul').val(data.judul);
+                    $('#show_pengarang').val(data.pengarang);
+                    $('#show_penerbit').val(data.penerbit);
+                    $('#show_tahun_terbit').val(data.tahun_terbit);
+                    $('#show_stok').val(data.stok);
+                    $('#show_deskripsi').val(data.deskripsi);
+                    $('#show_gambar').attr('src', 'data:image/jpeg;base64,' + data.gambar);
+                    $('#modalShowBuku').modal('show');
+                },
+                error: function() {
+                    alert('Gagal mengambil data.');
+                }
+                });
+            });
         });
     </script>
 </body>
