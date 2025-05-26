@@ -137,8 +137,8 @@ if (isset($_POST['simpan'])) {
 
             <!-- Nav Item - Data Pengguna -->
             <li class="nav-item">
-                <a class="nav-link" href="Data-Pengguna">
-                    <i class="bi bi-book"></i>
+                <a class="nav-link" style="color: #c25b4a; background-color: #fff4e3; border-color: 2px solid #c25b4a:" href="data_buku.php">
+                    <i class="bi bi-book" style="color: #c25b4a;"></i>
                     <span>Data Buku</span></a>
             </li>
             <li class="nav-item">
